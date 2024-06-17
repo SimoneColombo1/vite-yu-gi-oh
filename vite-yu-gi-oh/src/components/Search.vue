@@ -1,10 +1,18 @@
 <script>
+export default{
+    data() {
+        return {
+            textSearched:"",
+        }
+    },
+}
+
 </script>
 <template>
 <div class="select">
-    <select>
+    <select  @change="$emit('SearchText',textSearched) " v-model="textSearched"   >
        <option value="alien">Alien</option>
-       <option value="hero">Hero</option>
+       <option value="hero">-Eyes Dragon</option>
        <option value="Noble Knight">Noble Knight</option>
 
     </select>

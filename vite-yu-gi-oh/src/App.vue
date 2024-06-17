@@ -20,15 +20,15 @@ Search
     }
   },
   methods: {
-    getCardList(){
+    getCardList(textSearched){
     
       // Make a request for a user with a given ID
-axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=200&offset=0')
+axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=200&offset=0&archetype=' +textSearched )
   .then( (response) => {
     // handle success
     console.log(response.data.data);
     this.cards = response.data.data;
-  
+    
   
   })
   .catch(function (error) {
@@ -41,10 +41,15 @@ axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=200&offset=0')
      
 },
 
+SearchText(textSearched){
+
+  this.getCardList(textSearched)
+}
+
 },
 created() {
     this.getCardList();
-    console.log(this.cards)
+    
     
   },
 }
@@ -54,7 +59,7 @@ created() {
 <template>
  <Appheader />
  <main>
- <Search />
+ <Search @SearchText="SearchText"/>
   <cardList :cards="cards"/>
 </main>
   
