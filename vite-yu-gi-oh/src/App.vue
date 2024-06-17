@@ -1,19 +1,20 @@
 <script>
 import axios from 'axios';
-
-
-
-
+import cardList from './components/cardList.vue';
+import Appheader from './components/AppHeader.vue'
+import Search from './components/Search.vue';
 
 export default{
   
   components:{
-
+cardList,
+Appheader,
+Search
   },
   data() {
     return {
       cards: [],
-      
+      cardImage: []
   
       
     }
@@ -22,11 +23,13 @@ export default{
     getCardList(){
     
       // Make a request for a user with a given ID
-axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0')
+axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=200&offset=0')
   .then( (response) => {
     // handle success
-    console.log(response.data);
-    this.cards = response.data;
+    console.log(response.data.data);
+    this.cards = response.data.data;
+  
+  
   })
   .catch(function (error) {
     // handle error
@@ -41,6 +44,7 @@ axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0')
 },
 created() {
     this.getCardList();
+    console.log(this.cards)
     
   },
 }
@@ -48,14 +52,22 @@ created() {
 
 
 <template>
+ <Appheader />
+ <main>
+ <Search />
+  <cardList :cards="cards"/>
+</main>
   
-  
-  
-
 
 </template>
 
-<style scoped>
+<style scoped lang="scss" >
+main{
+  background-color: #d48f38;
+display: flex;
 
+flex-direction: column;
+justify-content: center;
+}
 </style>
 
